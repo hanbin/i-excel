@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<excel name="test">
+    <sheets>
+        <sheet name="sheet1" >
+            <columns>
+                <column name="test1" display="test11"/>
+                <column name="test2" display="test22"/>
+            </columns>
+        </sheet>
+    </sheets>
+</excel>
