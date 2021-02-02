@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 /**
  * @author han_bin@outlook.com
  * @Description TODO
@@ -33,7 +35,7 @@ public class ExcelTaskController {
 
     @ApiOperation("创建导入任务")
     @PostMapping("/createImportTask")
-    public CommonResponse<ExcelTaskVO> createImportTask(@RequestParam("file")MultipartFile file){
+    public CommonResponse<ExcelTaskVO> createImportTask(@RequestParam("file")MultipartFile file) {
         ExcelTaskVO excelTaskVO = new ExcelTaskVO();
         fileCheckService.check(file);
         try{
@@ -44,6 +46,10 @@ public class ExcelTaskController {
             logger.error(errorInfo, taskRejectedException);
             excelTaskVO.setErrorInfo(errorInfo);
             //这里做异常结束
+        }catch(Exception e){
+            String errorInfo = "导入异常中断了";
+            logger.error(errorInfo, e);
+            excelTaskVO.setErrorInfo(errorInfo);
         }
         return new CommonResponse<>(excelTaskVO);
     }
